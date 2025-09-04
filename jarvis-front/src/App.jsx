@@ -45,7 +45,7 @@ function App() {
 				{messages
 					.filter((m) => m.role !== "system")
 					.map((msg, i) => (
-						<div key={i} className={`mb-2 p-2 rounded ${msg.role === "user" ? "bg-blue-100 text-right" : "bg-gray-200 text-left"}`}>
+						<div key={i} className={`mb-2 p-2 rounded ${msg.role === "user" ? "bg-[#4ea595] text-right" : "bg-[#7b5fb3] text-left"}`}>
 							<strong>{msg.role === "user" ? "Tú" : "Asistente"}:</strong> {msg.content}
 						</div>
 					))}
