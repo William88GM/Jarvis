@@ -12,7 +12,14 @@
 	},
 	"ai": {
 		"binding": "AI"
-	}
+	},
+	"d1_databases": [
+		{
+			"binding": "RestMenuDB",
+			"database_name": "restaurant-menu-3",
+			"database_id": "dbef9321-77be-4ce3-988c-9e902eb4b4dc"
+		}
+	]
 
 	/**
 	 * Smart Placement

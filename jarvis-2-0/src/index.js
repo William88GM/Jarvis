@@ -42,9 +42,35 @@ export default {
 			// Ejemplo de tool: suma
 			const sum = async ({ a, b }) => (a + b).toString();
 
+			const runQuery = async ({ query }) => {
+				try {
+					const result = await env.RestMenuDB.prepare(query).all();
+					console.log('result de la query: ', result);
+					return JSON.stringify(result);
+				} catch (err) {
+					console.log('error en la query: ', err);
+					return `Error ejecutando query: ${err.message}`;
+				}
+			};
+
 			const response = await runWithTools(env.AI, '@hf/nousresearch/hermes-2-pro-mistral-7b', {
-				messages,
+				messages: [{ role: 'system', content: 'Eres Jarvis. Eres amable, respondes en español y de forma corta y concisa.' }, ...messages],
 				tools: [
+					{
+						name: 'runQuery',
+						description: 'Ejecuta una consulta SQL en la base de datos D1',
+						parameters: {
+							type: 'object',
+							properties: {
+								query: {
+									type: 'string',
+									description: 'La consulta SQL a ejecutar (ej: SELECT * FROM users LIMIT 5)',
+								},
+							},
+							required: ['query'],
+						},
+						function: runQuery,
+					},
 					{
 						name: 'sum',
 						description: 'Suma dos números',
