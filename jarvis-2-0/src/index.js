@@ -54,11 +54,18 @@ export default {
 			};
 
 			const response = await runWithTools(env.AI, '@hf/nousresearch/hermes-2-pro-mistral-7b', {
-				messages: [{ role: 'system', content: 'Eres Jarvis. Eres amable, respondes en español y de forma corta y concisa.' }, ...messages],
+				messages: [
+					{
+						role: 'system',
+						content:
+							'Eres Jarvis. Eres amable, respondes en español y de forma corta y concisa. Tienes acceso a herramientas como una que te permite hacer consultas a una db predefinida.',
+					},
+					...messages,
+				],
 				tools: [
 					{
 						name: 'runQuery',
-						description: 'Ejecuta una consulta SQL en la base de datos D1',
+						description: 'Ejecuta una consulta SQL en la base de datos D1, la query la ingresa el agente de ia.',
 						parameters: {
 							type: 'object',
 							properties: {
