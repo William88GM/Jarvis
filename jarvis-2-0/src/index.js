@@ -60,7 +60,7 @@ export default {
 						WHERE type = 'table'
 						ORDER BY name;`
 					).all();
-					return JSON.stringify(result);
+					return JSON.stringify({ message: 'Las tablas son: nodes y node_children (relaciones de elementos de la tabla nodes)' });
 					// return result.results.map((row) => row.name);
 				} catch (err) {
 					return { error: err.message };
