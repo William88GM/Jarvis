@@ -52,13 +52,27 @@ export default {
 					return `Error ejecutando query: ${err.message}`;
 				}
 			};
+			const listTables = async () => {
+				try {
+					const result = await env.DB.prepare(
+						`SELECT name 
+						FROM sqlite_master 
+						WHERE type = 'table'
+						ORDER BY name;`
+					).all();
+
+					return result.results.map((row) => row.name);
+				} catch (err) {
+					return { error: err.message };
+				}
+			};
 
 			const response = await runWithTools(env.AI, '@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
 				messages: [
 					{
 						role: 'system',
 						content:
-							'Eres Jarvis. Eres amable, respondes en español y de forma corta y concisa. Tienes acceso a herramientas como una que te permite hacer consultas a una db predefinida.',
+							'Eres Jarvis. Eres amable, respondes en español y de forma corta y concisa. Tienes acceso a herramientas como una que te permite hacer consultas a una db SQL predefinida. Sabes sobre SQL.',
 					},
 					...messages,
 				],
@@ -90,6 +104,15 @@ export default {
 							required: ['a', 'b'],
 						},
 						function: sum,
+					},
+					{
+						name: 'listTables',
+						description: 'Devuelve todas las tablas disponibles en la base de datos',
+						parameters: {
+							type: 'object',
+							properties: {},
+						},
+						function: listTables,
 					},
 				],
 			});
