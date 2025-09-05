@@ -60,8 +60,8 @@ export default {
 						WHERE type = 'table'
 						ORDER BY name;`
 					).all();
-
-					return result.results.map((row) => row.name);
+					return JSON.stringify(result);
+					// return result.results.map((row) => row.name);
 				} catch (err) {
 					return { error: err.message };
 				}
