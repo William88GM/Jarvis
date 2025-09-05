@@ -54,12 +54,12 @@ export default {
 			};
 			const listTables = async () => {
 				try {
-					const result = await env.DB.prepare(
-						`SELECT name 
-						FROM sqlite_master 
-						WHERE type = 'table'
-						ORDER BY name;`
-					).all();
+					// const result = await env.DB.prepare(
+					// 	`SELECT name
+					// 	FROM sqlite_master
+					// 	WHERE type = 'table'
+					// 	ORDER BY name;`
+					// ).all();
 					return JSON.stringify({ message: 'Las tablas son: nodes y node_children (relaciones de elementos de la tabla nodes)' });
 					// return result.results.map((row) => row.name);
 				} catch (err) {
@@ -72,7 +72,7 @@ export default {
 					{
 						role: 'system',
 						content:
-							'Eres Jarvis. Eres amable, respondes en español y de forma corta y concisa. Tienes acceso a herramientas como una que te permite hacer consultas a una db SQL predefinida. Sabes sobre SQL.',
+							'Eres Jarvis. Eres amable, respondes en español y de forma corta y concisa. Tienes acceso a herramientas como una que te permite hacer consultas a una db SQL predefinida. Sabes sobre SQL. Si hay algo sobre lo que no tienes certeza, entonces aclaras que no lo sabes, no te inventes cosas.',
 					},
 					...messages,
 				],
