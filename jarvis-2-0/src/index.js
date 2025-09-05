@@ -53,7 +53,7 @@ export default {
 				}
 			};
 
-			const response = await runWithTools(env.AI, '@hf/nousresearch/hermes-2-pro-mistral-7b', {
+			const response = await runWithTools(env.AI, '@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
 				messages: [
 					{
 						role: 'system',
